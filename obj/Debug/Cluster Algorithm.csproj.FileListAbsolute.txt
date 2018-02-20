@@ -1,0 +1,7 @@
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\bin\Debug\Cluster Algorithm.exe.config
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\bin\Debug\Cluster Algorithm.exe
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\bin\Debug\Cluster Algorithm.pdb
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\obj\Debug\Cluster Algorithm.csprojResolveAssemblyReference.cache
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\obj\Debug\Cluster Algorithm.csproj.CoreCompileInputs.cache
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\obj\Debug\Cluster Algorithm.exe
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\obj\Debug\Cluster Algorithm.pdb

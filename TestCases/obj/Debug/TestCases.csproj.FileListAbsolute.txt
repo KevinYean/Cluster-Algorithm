@@ -1,0 +1,16 @@
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\bin\Debug\TestCases.dll
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\bin\Debug\TestCases.pdb
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\bin\Debug\Cluster Algorithm.exe
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\bin\Debug\Cluster Algorithm.pdb
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\bin\Debug\Cluster Algorithm.exe.config
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\obj\Debug\TestCases.csprojResolveAssemblyReference.cache
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\obj\Debug\TestCases.csproj.CoreCompileInputs.cache
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\obj\Debug\TestCases.dll
+C:\Users\Kevin\Documents\Programming\Programming Languages\C#\Cluster Algorithm\TestCases\obj\Debug\TestCases.pdb
