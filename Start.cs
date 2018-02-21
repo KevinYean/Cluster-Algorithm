@@ -16,6 +16,11 @@ namespace Cluster_Algorithm
         public Start()
         {
             Console.WriteLine("Start");
+            FileReader fileReader = new FileReader();
+            fileReader.ReadCSVFile(@"..\..\Sample1D.csv");
+            fileReader.ConvertDataString();
+            
+
             Console.ReadLine();
         }
     }

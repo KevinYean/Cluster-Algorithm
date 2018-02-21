@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cluster.cs" />
+    <Compile Include="DataPoint.cs" />
     <Compile Include="FileReader.cs" />
     <Compile Include="Linkage.cs" />
     <Compile Include="AverageLinkage.cs" />
@@ -52,6 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="IrisData.csv" />
+    <None Include="Sample1D.csv" />
+    <None Include="Sample01.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
