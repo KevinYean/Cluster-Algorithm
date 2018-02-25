@@ -29,6 +29,29 @@ namespace Cluster_Algorithm
 
         }
 
+        /// <summary>
+        /// Runs Single Linkage
+        /// </summary>
+        public void Run()
+        {
+            //Put each value into their own clusters
+            CreateClusters();
+            //Loop Start
+            while (clusterList.Count() > kClusters)
+            {
+                CreateClusterPairs();
+                SetClusterPairsDistances();
+                MergeClusters();
+            }
+            //Run as long as the number of clusters is not k
+            // while(GetClustersCount() > kClusters)
+            //{
+            //Find the two clusters with the shortest distance
+            //}
+        }
+
+      
+
         
     }
 }

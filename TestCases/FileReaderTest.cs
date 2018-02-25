@@ -12,29 +12,10 @@ namespace TestCases
         public void ReadCSVFileTest1()
         {
             FileReader fileReader = new FileReader();
-            fileReader.ReadCSVFile(@"..\..\..\IrisData.csv");
+            fileReader.ReadCSVFile(@"..\..\..\Data\IrisData.csv");
             int lineNumbers = fileReader.GetLineNumber();
-            Assert.AreEqual(lineNumbers, 150);
+            Assert.AreEqual(lineNumbers, 151);
         }
 
-        [TestMethod]
-        public void ConvertDataStringTest1()
-        {
-            FileReader fileReader = new FileReader();
-            fileReader.ReadCSVFile(@"..\..\..\Sample1D.csv");
-            fileReader.ConvertDataString();
-            int dataSize = fileReader.GetDataListSize();
-            Assert.AreEqual(dataSize, 9);
-        }
-
-        [TestMethod]
-        public void GetDataPointsTest1()
-        {
-            FileReader fileReader = new FileReader();
-            fileReader.ReadCSVFile(@"..\..\..\Sample1D.csv");
-            fileReader.ConvertDataString();
-            List<DataPoint> data = fileReader.GetDataPoints();
-            Assert.AreEqual(data.Count, 9);
-        }
     }
 }

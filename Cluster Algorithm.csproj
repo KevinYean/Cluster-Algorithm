@@ -54,9 +54,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="IrisData.csv" />
-    <None Include="Sample1D.csv" />
-    <None Include="Sample01.csv" />
+    <None Include="Data\IrisData.csv" />
+    <None Include="Data\KnowledgeData.csv" />
+    <None Include="Data\DistanceSample1D.csv" />
+    <None Include="Data\Sample1D.csv" />
+    <None Include="Data\Sample01.csv" />
+    <None Include="Data\SeedData.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\IrisSet.txt" />
+    <Content Include="Data\KnowledgeSet.txt" />
+    <Content Include="Data\SeedSet.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

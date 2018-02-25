@@ -9,10 +9,9 @@ namespace Cluster_Algorithm
 {
     public class FileReader
     {
-        private int lineNumber;
         private string attributes;
+        private int lineNumber;
         private List<string> dataStringList;
-        private List<DataPoint> dataList;
 
         /// <summary>
         /// Initializes a newly created FileReader.
@@ -20,8 +19,7 @@ namespace Cluster_Algorithm
         public FileReader()
         {
             lineNumber = 0;
-            dataStringList = new List<string>();
-            dataList = new List<DataPoint>();
+            dataStringList = new List<string>();      
         }
 
         /// <summary>
@@ -51,42 +49,21 @@ namespace Cluster_Algorithm
         }
 
         /// <summary>
-        /// Convert the dataStringList into an Int List then save each line as a data point.
+        /// Returns the list of string dataStringList.
         /// </summary>
-        public void ConvertDataString()
+        /// <returns></returns>
+        public List<string> GetDataStringList()
         {
-            string attributeName = attributes.Split(',').ToList()[0];
-            foreach(string line in dataStringList)
-            {
-                List<string> dataValueList = new List<string>();
-                dataValueList = line.Split(',').ToList();
-
-                List<int> dataValueIntList = new List<int>();
-                dataValueIntList = dataValueList.ConvertAll(int.Parse);
-
-                DataPoint newDataPoint = new DataPoint(dataValueIntList[0], attributeName);
-                dataList.Add(newDataPoint);
-
-                Console.WriteLine(line);
-            } 
+            return dataStringList;
         }
 
         /// <summary>
-        /// Returns the size of the list of DataPoints.
+        /// Returns the string attributes which contains all the labels
         /// </summary>
         /// <returns></returns>
-        public int GetDataListSize()
+        public string GetAttributes()
         {
-            return dataList.Count();
-        }
-
-        /// <summary>
-        /// Returns the list of DataPoints.
-        /// </summary>
-        /// <returns></returns>
-        public List<DataPoint> GetDataPoints()
-        {
-            return dataList;
+            return attributes;
         }
 
         /// <summary>

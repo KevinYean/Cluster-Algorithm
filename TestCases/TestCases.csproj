@@ -50,6 +50,9 @@
   <ItemGroup>
     <Compile Include="AverageLinkageTest.cs" />
     <Compile Include="CompleteLinkageTest.cs" />
+    <Compile Include="DataPointTest.cs" />
+    <Compile Include="ClusterTest.cs" />
+    <Compile Include="StartTest.cs" />
     <Compile Include="LinkageTest.cs" />
     <Compile Include="SingleLinkageTest.cs" />
     <Compile Include="FileReaderTest.cs" />
