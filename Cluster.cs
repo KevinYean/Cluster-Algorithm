@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Cluster_Algorithm
 {
+    /// <summary>
+    /// A simple Class that holds ClusterPairs and their distances from each other.
+    /// </summary>
     public class ClusterPair
     {
         public int clusterOne;
@@ -19,7 +22,15 @@ namespace Cluster_Algorithm
     /// </summary>
     public class Cluster
     {
-        private List<DataPoint> dataList;
+        private List<DataPoint> dataList; //List of Data Points
+
+        /// <summary>
+        /// Initiliazes a constructor which creates a new list of dataPoints.
+        /// </summary>
+        public Cluster()
+        {
+            dataList = new List<DataPoint>();
+        }
 
         /// <summary>
         /// Initializes a constructor which creates a new list of dataPoints and add 
@@ -31,6 +42,7 @@ namespace Cluster_Algorithm
             dataList = new List<DataPoint>();
             dataList.Add(newDataPoint);
         }
+
 
         /// <summary>
         /// Get DataListPoint
@@ -48,15 +60,8 @@ namespace Cluster_Algorithm
         {
             for(int i = 0; i < otherCluster.GetDataPoints().Count; i++)
             {
-                //Console.WriteLine(this == otherCluster);
-                //Console.WriteLine(dataList[i].GetValues()[i]);
-                //Console.WriteLine(otherCluster.dataList[i].GetValues()[i]);
                 dataList.Add(otherCluster.GetDataPoints()[i]);
             }
-            /*foreach(DataPoint point in otherCluster.GetDataPoints())
-            {
-                dataList.Add(point); //To do create brand new datapoint?
-            }*/
         }
     }
 }

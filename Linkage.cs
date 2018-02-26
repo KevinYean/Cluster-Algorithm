@@ -11,7 +11,7 @@ namespace Cluster_Algorithm
         public int kClusters;
         public List<DataPoint> dataList;
         public List<Cluster> clusterList;
-        public List<ClusterPair> listClusterPairs;
+        public List<ClusterPair> clusterPairsList;
 
         /// <summary>
         /// Initalizes a newly created Linkage
@@ -29,7 +29,7 @@ namespace Cluster_Algorithm
         /// <param name="newDataList"></param>
         public Linkage(int newK, List<DataPoint> newDataList)
         {
-            listClusterPairs = new List<ClusterPair>();
+            clusterPairsList = new List<ClusterPair>();
             kClusters = newK;
             dataList = new List<DataPoint>(newDataList);
             clusterList = new List<Cluster>();
@@ -39,13 +39,37 @@ namespace Cluster_Algorithm
         /// Initializes the clusters so that each point is in its own cluster
         /// and add it to the list of clusters.
         /// </summary>
-        public void CreateClusters()
+        public void CreateInitClusters()
         {
             foreach(DataPoint dataPoint in dataList)
             {
                 Cluster temporaryCluster = new Cluster(dataPoint);
                 clusterList.Add(temporaryCluster);
             }
+        }
+
+        /// <summary>
+        /// Return a representation of the cluster in a string format.
+        /// </summary>
+        /// <returns></returns>
+        public string ClustersToString()
+        {
+            string toString = "";
+            foreach (Cluster cluster in clusterList)
+            {
+                toString += "Cluster: \n";
+                foreach (DataPoint data in cluster.GetDataPoints())
+                {
+                    toString += "Data: ";
+                    foreach (float value in data.GetValues())
+                    {
+                        toString += value + " , ";
+                    }
+                    toString += data.GetLabel();
+                    toString += "\n";
+                }
+            }
+            return toString;
         }
 
         /// <summary>
@@ -58,11 +82,20 @@ namespace Cluster_Algorithm
         }
 
         /// <summary>
+        /// Returns the list of clusters clusterlist.
+        /// </summary>
+        /// <returns></returns>
+        public List<Cluster> GetClusters()
+        {
+            return clusterList;
+        }
+
+        /// <summary>
         /// Create all ClusterPairs
         /// </summary>
         public void CreateClusterPairs()
         {
-            listClusterPairs = new List<ClusterPair>(); //Reset everytime.
+            clusterPairsList = new List<ClusterPair>(); //Reset everytime.
             //n(n - 1) / 2
             for (int i = 0; i < clusterList.Count; i++)
             {
@@ -71,7 +104,7 @@ namespace Cluster_Algorithm
                     ClusterPair tempClusterPair = new ClusterPair();
                     tempClusterPair.clusterOne = i;
                     tempClusterPair.clusterTwo = y;
-                    listClusterPairs.Add(tempClusterPair);
+                    clusterPairsList.Add(tempClusterPair);
                 }
             }
         }
@@ -83,7 +116,7 @@ namespace Cluster_Algorithm
         public string ClusterPairsToString()
         {
             string toString = "";
-            foreach (ClusterPair pair in listClusterPairs)
+            foreach (ClusterPair pair in clusterPairsList)
             {
                 toString += "Cluster Pair: [" + pair.clusterOne + "][" + pair.clusterTwo + "], Distance: "+ pair.distance + "\n"; 
             }
@@ -96,35 +129,7 @@ namespace Cluster_Algorithm
         /// <returns></returns>
         public int GetClusterPairsCount()
         {
-            return listClusterPairs.Count();
-        }
-
-        /// <summary>
-        /// Set the ClusterPairDistances for all clusterPairs
-        /// </summary>
-        public void SetClusterPairsDistances()
-        {
-            //Might need to switch foreach to for int, unclear if clusterpair directely refers to references.
-            for(int x = 0; x < listClusterPairs.Count; x++)
-            {
-                int clusterOne = listClusterPairs[x].clusterOne;
-                int clusterTwo = listClusterPairs[x].clusterTwo;
-                float distance = -1;
-                //Go through every datapoint in cluster one
-                for(int i = 0; i < clusterList[clusterOne].GetDataPoints().Count; i++)
-                {
-                    //Go through everydatapoint in cluster two
-                    for(int y = 0; y < clusterList[clusterTwo].GetDataPoints().Count; y++)
-                    {
-                        float tempDistance = clusterList[clusterOne].GetDataPoints()[i].GetDistanceDataPoint(clusterList[clusterTwo].GetDataPoints()[y].GetValues());
-                        //Closest
-                        if (tempDistance < distance || distance == -1){
-                            distance = tempDistance;
-                        }
-                    }
-                }
-                listClusterPairs[x].distance = distance;
-            }
+            return clusterPairsList.Count();
         }
 
         /// <summary>
@@ -134,53 +139,6 @@ namespace Cluster_Algorithm
         public int GetK()
         {
             return kClusters;
-        }
-
-        /// <summary>
-        /// Merges Closest Clusters together
-        /// </summary>
-        public void MergeClusters()
-        {
-            int clusterOne = -1;
-            int clusterTwo = -1;
-            float distance = -1;
-
-            for (int x = 0; x < listClusterPairs.Count; x++)
-            {
-                if (listClusterPairs[x].distance < distance || distance == -1)
-                {
-                    clusterOne = listClusterPairs[x].clusterOne;
-                    clusterTwo = listClusterPairs[x].clusterTwo;
-                    distance = listClusterPairs[x].distance;
-                }
-            }
-
-            clusterList[clusterOne].MergeCluster(clusterList[clusterTwo]); //Merge
-            clusterList.RemoveAt(clusterTwo);//Remove second cluster from list.
-        }
-
-        /// <summary>
-        /// Return a representation of the cluster in a string format.
-        /// </summary>
-        /// <returns></returns>
-        public string ClustersToString()
-        {
-            string toString = "";
-            foreach(Cluster cluster in clusterList)
-            {
-                toString += "Cluster: \n";
-                foreach(DataPoint data in cluster.GetDataPoints())
-                {
-                    toString += "Data: ";
-                    foreach (float value in data.GetValues())
-                    {
-                        toString += value + " , ";
-                    }
-                    toString += data.GetLabel();
-                    toString += "\n";
-                }
-            }
-            return toString;
         }
 
         /// <summary>

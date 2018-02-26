@@ -14,7 +14,7 @@ namespace TestCases
             Start test = new Start(@"..\..\..\Data\Sample1D.csv");
             List<DataPoint> temp = test.GetDataPoints();
             Linkage link = new Linkage(10, temp);
-            link.CreateClusters();
+            link.CreateInitClusters();
             int num = link.GetClustersCount();
             Assert.AreEqual(num, 6);
         }
@@ -25,7 +25,7 @@ namespace TestCases
             Start test = new Start(@"..\..\..\Data\Sample1D.csv");
             List<DataPoint> temp = test.GetDataPoints();
             Linkage link = new Linkage(10, temp);
-            link.CreateClusters();
+            link.CreateInitClusters();
             link.CreateClusterPairs();
             int num = link.GetClusterPairsCount();
             Assert.AreEqual(num, 15);
@@ -37,7 +37,7 @@ namespace TestCases
             Start test = new Start(@"..\..\..\Data\DistanceSample1D.csv");
             List<DataPoint> temp = test.GetDataPoints();
             Linkage link = new Linkage(10, temp);
-            link.CreateClusters();
+            link.CreateInitClusters();
             link.CreateClusterPairs();
             int num = link.GetClusterPairsCount();
             Assert.AreEqual(num, 6);
@@ -49,7 +49,7 @@ namespace TestCases
             Start test = new Start(@"..\..\..\Data\Sample01.csv");
             List<DataPoint> temp = test.GetDataPoints();
             Linkage link = new Linkage(10, temp);
-            link.CreateClusters();
+            link.CreateInitClusters();
             link.CreateClusterPairs();
             int num = link.GetClusterPairsCount();
             Assert.AreEqual(num, 105);
@@ -61,7 +61,7 @@ namespace TestCases
             Start test = new Start(@"..\..\..\Data\IrisData.csv");
             List<DataPoint> temp = test.GetDataPoints();
             Linkage link = new Linkage(10, temp);
-            link.CreateClusters();
+            link.CreateInitClusters();
             link.CreateClusterPairs();
             int num = link.GetClusterPairsCount();
             Assert.AreEqual(num, 11175);

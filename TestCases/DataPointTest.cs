@@ -13,11 +13,11 @@ namespace TestCases
         {
             float[] array1 = new float[] { 1 };
             DataPoint data1 = new DataPoint(2);
-            data1.SetData(array1);
+            data1.SetValues(array1);
 
             float[] array2 = new float[] { 4 };
             DataPoint data2 = new DataPoint(2);
-            data2.SetData(array2);
+            data2.SetValues(array2);
 
             float[] array = data2.GetValues();
             float distance = data1.GetDistanceDataPoint(array);
@@ -30,11 +30,11 @@ namespace TestCases
         {
             float[] array1 = new float[] { 2 };
             DataPoint data1 = new DataPoint(2);
-            data1.SetData(array1);
+            data1.SetValues(array1);
 
             float[] array2 = new float[] { 8 };
             DataPoint data2 = new DataPoint(2);
-            data2.SetData(array2);
+            data2.SetValues(array2);
 
             float[] array = data2.GetValues();
             float distance = data1.GetDistanceDataPoint(array);
@@ -47,11 +47,11 @@ namespace TestCases
         {
             float[] array1 = new float[] { -4 };
             DataPoint data1 = new DataPoint(2);
-            data1.SetData(array1);
+            data1.SetValues(array1);
 
             float[] array2 = new float[] { 10 };
             DataPoint data2 = new DataPoint(2);
-            data2.SetData(array2);
+            data2.SetValues(array2);
 
             float[] array = data2.GetValues();
             float distance = data1.GetDistanceDataPoint(array);
@@ -64,11 +64,11 @@ namespace TestCases
         {
             float[] array1 = new float[] { 5,1 };
             DataPoint data1 = new DataPoint(3);
-            data1.SetData(array1);
+            data1.SetValues(array1);
 
             float[] array2 = new float[] {1,-2 };
             DataPoint data2 = new DataPoint(3);
-            data2.SetData(array2);
+            data2.SetValues(array2);
 
             float[] array = data2.GetValues();
             float distance = data1.GetDistanceDataPoint(array);
@@ -81,11 +81,11 @@ namespace TestCases
         {
             float[] array1 = new float[] { 0,0,-1};
             DataPoint data1 = new DataPoint(4);
-            data1.SetData(array1);
+            data1.SetValues(array1);
 
             float[] array2 = new float[] { 8, 6, -1 };
             DataPoint data2 = new DataPoint(4);
-            data2.SetData(array2);
+            data2.SetValues(array2);
 
             float[] array = data2.GetValues();
             float distance = data1.GetDistanceDataPoint(array);

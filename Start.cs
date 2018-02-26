@@ -12,12 +12,20 @@ namespace Cluster_Algorithm
         List<string> dataStringList;
         private string attributes;
 
+        /// <summary>
+        /// Main method that creates a new Start class with the CSV file path as the string parameter.
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Start main = new Start(@"..\..\Data\DistanceSample1D.csv");
+            Start main = new Start(@"..\..\Data\DistanceSample3D.csv");
             main.Begin();
         }
 
+        /// <summary>
+        /// Initializes a constructor which reads the file at the given filepath and converts to usuable data.
+        /// </summary>
+        /// <param name="filePath"></param>
         public Start(string filePath)
         {
             dataList = new List<DataPoint>();
@@ -33,25 +41,23 @@ namespace Cluster_Algorithm
         
         }
 
+        /// <summary>
+        /// Method launches whichever clustering method is preferred.
+        /// </summary>
         public void Begin()
         {
             Console.WriteLine("Start");
-            int dataSize = GetDataListSize();
-            /*foreach(DataPoint data in dataList)
-            {
-                Console.WriteLine(data.ToStringValues());
-            }*/
-
-            //Clustering
             RunSingleLinkage();
-
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Method runs singlelinkage on the data that was taken
+        /// </summary>
         public void RunSingleLinkage()
         {
             //Testing SingleLinkage on Sample1D set
-            SingleLinkage singleLinkage = new SingleLinkage(2, dataList);
+            SingleLinkage singleLinkage = new SingleLinkage(3, dataList);
             singleLinkage.Run();
             Console.WriteLine(singleLinkage.ClusterPairsToString());
             Console.WriteLine("Total Number of ClusterPairs:" + singleLinkage.GetClusterPairsCount());
@@ -81,7 +87,7 @@ namespace Cluster_Algorithm
                 dataValueIntList = dataValueList.ConvertAll(float.Parse);
 
                 DataPoint newDataPoint = new DataPoint(attributeNames.Count);
-                newDataPoint.SetData(dataValueIntList.ToArray());
+                newDataPoint.SetValues(dataValueIntList.ToArray());
                 newDataPoint.SetLabel(label);
 
                 dataList.Add(newDataPoint);

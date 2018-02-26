@@ -23,7 +23,7 @@ namespace Cluster_Algorithm
         }
 
         /// <summary>
-        /// Constructs a new variable that holds the information retrived from a CSV file.
+        /// Saves the text information into dataStringList which holds the information retrieved from a CSV file.
         /// </summary>
         /// <param name="filePath"></param>
         public void ReadCSVFile(string filePath)
@@ -75,13 +75,5 @@ namespace Cluster_Algorithm
             return lineNumber;
         }
 
-        /// <summary>
-        /// Test Method
-        /// </summary>
-        /// <returns></returns>
-        public int Test()
-        {
-            return 1;
-        }
     }
 }

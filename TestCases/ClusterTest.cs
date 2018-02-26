@@ -13,11 +13,11 @@ namespace TestCases
         {
             float[] array1 = new float[] { 0, 0, -1};
             DataPoint data1 = new DataPoint(4);
-            data1.SetData(array1);
+            data1.SetValues(array1);
 
             float[] array2 = new float[] { 8, 6, -1 };
             DataPoint data2 = new DataPoint(4);
-            data2.SetData(array2);
+            data2.SetValues(array2);
 
             Cluster cluster1 = new Cluster(data1);
             Cluster cluster2 = new Cluster(data2);
@@ -32,15 +32,15 @@ namespace TestCases
         {
             float[] array1 = new float[] { 0, 0, -1 };
             DataPoint data1 = new DataPoint(4);
-            data1.SetData(array1);
+            data1.SetValues(array1);
 
             float[] array2 = new float[] { 8, 6, -1 };
             DataPoint data2 = new DataPoint(4);
-            data2.SetData(array2);
+            data2.SetValues(array2);
 
             float[] array3 = new float[] { 8, 6, -1 };
             DataPoint data3 = new DataPoint(4);
-            data3.SetData(array3);
+            data3.SetValues(array3);
 
             Cluster cluster1 = new Cluster(data1);
             Cluster cluster2 = new Cluster(data2);

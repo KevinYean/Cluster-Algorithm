@@ -17,14 +17,82 @@ namespace TestCases
         }
 
         [TestMethod]
-        public void GetKClustersTest1()
+        public void SingleLinkageCluster1()
         {
-            List<DataPoint> tempList = new List<DataPoint>();
-            tempList.Add(new DataPoint(1, "cake"));
-            SingleLinkage singleLinkage = new SingleLinkage(10,tempList);
-            int clusterSize = singleLinkage.GetK();
-            Assert.AreEqual(clusterSize, 10);
+            Start test = new Start(@"..\..\..\Data\DistanceSample1D.csv");
+            List<DataPoint> temp = test.GetDataPoints();
+            SingleLinkage link = new SingleLinkage(2, temp);
+            link.Run();
+            int dataNum = link.GetClusters()[0].GetDataPoints().Count;
+            Assert.AreEqual(dataNum, 3);
         }
+
+        [TestMethod]
+        public void SingleLinkageCluster2()
+        {
+            Start test = new Start(@"..\..\..\Data\DistanceSample1D.csv");
+            List<DataPoint> temp = test.GetDataPoints();
+            SingleLinkage link = new SingleLinkage(2, temp);
+            link.Run();
+            int dataNum = link.GetClusters()[1].GetDataPoints().Count;
+            Assert.AreEqual(dataNum, 1);
+        }
+
+        [TestMethod]
+        public void SingleLinkageCluster3()
+        {
+            Start test = new Start(@"..\..\..\Data\DistanceSample2D.csv");
+            List<DataPoint> temp = test.GetDataPoints();
+            SingleLinkage link = new SingleLinkage(2, temp);
+            link.Run();
+            int dataNum = link.GetClusters()[0].GetDataPoints().Count;
+            Assert.AreEqual(dataNum, 3);
+        }
+
+        [TestMethod]
+        public void SingleLinkageCluster4()
+        {
+            Start test = new Start(@"..\..\..\Data\DistanceSample2D.csv");
+            List<DataPoint> temp = test.GetDataPoints();
+            SingleLinkage link = new SingleLinkage(2, temp);
+            link.Run();
+            int dataNum = link.GetClusters()[1].GetDataPoints().Count;
+            Assert.AreEqual(dataNum, 5);
+        }
+
+        [TestMethod]
+        public void SingleLinkageCluster5()
+        {
+            Start test = new Start(@"..\..\..\Data\DistanceSample3D.csv");
+            List<DataPoint> temp = test.GetDataPoints();
+            SingleLinkage link = new SingleLinkage(3, temp);
+            link.Run();
+            int dataNum = link.GetClusters()[1].GetDataPoints().Count;
+            Assert.AreEqual(dataNum, 3);
+        }
+
+        [TestMethod]
+        public void SingleLinkageCluster6()
+        {
+            Start test = new Start(@"..\..\..\Data\DistanceSample3D.csv");
+            List<DataPoint> temp = test.GetDataPoints();
+            SingleLinkage link = new SingleLinkage(3, temp);
+            link.Run();
+            int dataNum = link.GetClusters()[1].GetDataPoints().Count;
+            Assert.AreEqual(dataNum, 3);
+        }
+
+        [TestMethod]
+        public void SingleLinkageCluster7()
+        {
+            Start test = new Start(@"..\..\..\Data\DistanceSample3D.csv");
+            List<DataPoint> temp = test.GetDataPoints();
+            SingleLinkage link = new SingleLinkage(3, temp);
+            link.Run();
+            int dataNum = link.GetClusters()[2].GetDataPoints().Count;
+            Assert.AreEqual(dataNum, 1);
+        }
+
     }
 
 }
