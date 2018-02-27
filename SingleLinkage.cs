@@ -43,6 +43,14 @@ namespace Cluster_Algorithm
                 SetClusterPairsSingleLinkageDistances(); //Calculate Cluster Pairs distances
                 MergeClusters(); //Merge the two closest clusters
             }
+
+            //TO ERASE
+            clusterList[0].CreateDataPointPairs();
+            clusterList[0].SetDataPairsDistances();
+            clusterList[0].SetCentroidPoint();
+            Console.WriteLine(clusterList[0].DataPairsToString());
+            Console.WriteLine(clusterList[0].GetCentroidPoint().ToStringValues());
+            ///
         }
 
         /// <summary>

@@ -55,7 +55,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Data\DistanceSample1Dz.csv" />
+    <None Include="Data\DistanceSample1Dx.csv" />
     <None Include="Data\DistanceSample1D.csv" />
+    <None Include="Data\DistanceSample2Dz.csv" />
+    <None Include="Data\DistanceSample2Dx.csv" />
+    <None Include="Data\DistanceSample3Dz.csv" />
     <None Include="Data\DistanceSample3D.csv" />
     <None Include="Data\IrisData.csv" />
     <None Include="Data\KnowledgeData.csv" />

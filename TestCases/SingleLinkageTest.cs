@@ -93,6 +93,17 @@ namespace TestCases
             Assert.AreEqual(dataNum, 1);
         }
 
+        [TestMethod]
+        public void SingleLinkageCluster8()
+        {
+            Start test = new Start(@"..\..\..\Data\DistanceSample1Dx.csv");
+            List<DataPoint> temp = test.GetDataPoints();
+            SingleLinkage link = new SingleLinkage(2, temp);
+            link.Run();
+            int dataNum = link.GetClusters()[0].GetDataPoints().Count;
+            Assert.AreEqual(dataNum, 3);
+        }
+
     }
 
 }

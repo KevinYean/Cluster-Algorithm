@@ -6,6 +6,17 @@ using System.Threading.Tasks;
 
 namespace Cluster_Algorithm
 {
+    /// <summary>
+    /// A simple Class that holds DataPointPairs and their distances from each other.
+    /// </summary>
+    public class DataPointPair
+    {
+        public int pointOne;
+        public int pointTwo;
+        public float distance;
+
+    }
+
     public class DataPoint
     {
         private string[] attributesName;

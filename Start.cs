@@ -18,8 +18,8 @@ namespace Cluster_Algorithm
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Start main = new Start(@"..\..\Data\DistanceSample3D.csv");
-            main.Begin();
+            Start main = new Start(@"..\..\Data\IrisData.csv");
+            main.Begin(3);
         }
 
         /// <summary>
@@ -44,24 +44,56 @@ namespace Cluster_Algorithm
         /// <summary>
         /// Method launches whichever clustering method is preferred.
         /// </summary>
-        public void Begin()
+        public void Begin(int kCluster)
         {
             Console.WriteLine("Start");
-            RunSingleLinkage();
+            Console.WriteLine();
+            RunSingleLinkage(kCluster);
+            RunCompleteLinkage(kCluster);
+            RunAverageLinkage(kCluster);
             Console.ReadLine();
         }
 
         /// <summary>
         /// Method runs singlelinkage on the data that was taken
         /// </summary>
-        public void RunSingleLinkage()
+        public void RunSingleLinkage(int kCluster)
         {
+            Console.WriteLine("SingleLinkage");
             //Testing SingleLinkage on Sample1D set
-            SingleLinkage singleLinkage = new SingleLinkage(3, dataList);
+            SingleLinkage singleLinkage = new SingleLinkage(kCluster, dataList);
             singleLinkage.Run();
-            Console.WriteLine(singleLinkage.ClusterPairsToString());
-            Console.WriteLine("Total Number of ClusterPairs:" + singleLinkage.GetClusterPairsCount());
+            //Console.WriteLine(singleLinkage.ClusterPairsToString());
+            //Console.WriteLine("Total Number of ClusterPairs:" + singleLinkage.GetClusterPairsCount());
             Console.WriteLine(singleLinkage.ClustersToString());
+        }
+
+        /// <summary>
+        /// Method runs CompleteLinkage on the data that was taken
+        /// </summary>
+        public void RunCompleteLinkage(int kCluster)
+        {
+            Console.WriteLine("CompleteLinkage");
+            //Testing CompleteLinkage on Sample1D set
+            CompleteLinkage completeLinkage = new CompleteLinkage(kCluster, dataList);
+            completeLinkage.Run();
+            //Console.WriteLine(completeLinkage.ClusterPairsToString());
+            //Console.WriteLine("Total Number of ClusterPairs:" + completeLinkage.GetClusterPairsCount());
+            Console.WriteLine(completeLinkage.ClustersToString());
+        }
+
+        /// <summary>
+        /// Method runs singlelinkage on the data that was taken
+        /// </summary>
+        public void RunAverageLinkage(int kCluster)
+        {
+            Console.WriteLine("AverageLinkage");
+            //Testing SingleLinkage on Sample1D set
+            AverageLinkage averageLinkage = new AverageLinkage(kCluster, dataList);
+            averageLinkage.Run();
+            //Console.WriteLine(singleLinkage.ClusterPairsToString());
+            //Console.WriteLine("Total Number of ClusterPairs:" + singleLinkage.GetClusterPairsCount());
+            Console.WriteLine(averageLinkage.ClustersToString());
         }
 
         /// <summary>

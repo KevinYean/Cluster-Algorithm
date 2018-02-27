@@ -1,0 +1,9 @@
+Distance X, Distance Y, Distance Z, Shape
+0,1,1,Cube
+1,1,1,Cube
+1,1,0,Cube
+0,1,0,Cube
+0,0,1,Cube
+0,0,0,Cube
+1,0,1,Cube
+1,0,0,Cube
