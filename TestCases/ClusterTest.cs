@@ -12,11 +12,11 @@ namespace TestCases
         public void MergeClusterTest1()
         {
             float[] array1 = new float[] { 0, 0, -1};
-            DataPoint data1 = new DataPoint(4);
+            DataPoint data1 = new DataPoint(4,1);
             data1.SetValues(array1);
 
             float[] array2 = new float[] { 8, 6, -1 };
-            DataPoint data2 = new DataPoint(4);
+            DataPoint data2 = new DataPoint(4,1);
             data2.SetValues(array2);
 
             Cluster cluster1 = new Cluster(data1);
@@ -31,15 +31,15 @@ namespace TestCases
         public void MergeClusterTest2()
         {
             float[] array1 = new float[] { 0, 0, -1 };
-            DataPoint data1 = new DataPoint(4);
+            DataPoint data1 = new DataPoint(4,1);
             data1.SetValues(array1);
 
             float[] array2 = new float[] { 8, 6, -1 };
-            DataPoint data2 = new DataPoint(4);
+            DataPoint data2 = new DataPoint(4,1);
             data2.SetValues(array2);
 
             float[] array3 = new float[] { 8, 6, -1 };
-            DataPoint data3 = new DataPoint(4);
+            DataPoint data3 = new DataPoint(4,1);
             data3.SetValues(array3);
 
             Cluster cluster1 = new Cluster(data1);

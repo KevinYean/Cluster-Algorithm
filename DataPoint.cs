@@ -12,7 +12,9 @@ namespace Cluster_Algorithm
     public class DataPointPair
     {
         public int pointOne;
+        public int idOne;
         public int pointTwo;
+        public int idTwo;
         public float distance;
 
     }
@@ -22,13 +24,15 @@ namespace Cluster_Algorithm
         private string[] attributesName;
         private float[] values;
         private string label;
+        private int id;
 
         /// <summary>
         /// Initliazes a newly created DataPoint by assigning the size of the two arrays with Array Size
         /// </summary>
         /// <param name="arraySize"></param>
-        public DataPoint(int arraySize)
+        public DataPoint(int arraySize,int newID)
         {
+            id = newID;
             attributesName = new string[arraySize];
             values = new float[arraySize-1]; //Attributes size - 1 represent the list of values.
         }
@@ -37,11 +41,21 @@ namespace Cluster_Algorithm
         /// Initializes a newly created Datapoint by assinging a new list of float.
         /// </summary>
         /// <param name="arrayData"></param>
-        public DataPoint(float[] arrayData)
+        public DataPoint(float[] arrayData,int newID)
         {
+            id = newID;
             attributesName = new string[arrayData.Count()+1]; //Attributes size + 1 represent the list of values and label
             values = new float[arrayData.Count()];
             SetValues(arrayData);
+        }
+
+        /// <summary>
+        /// Returns the ID of the dataPoint
+        /// </summary>
+        /// <returns></returns>
+        public int GetID()
+        {
+            return id;
         }
 
         /// <summary>
@@ -99,7 +113,7 @@ namespace Cluster_Algorithm
         /// <returns></returns>
         public float GetDistanceDataPoint(float[] pointValues)
         {
-            float distance = 0;
+            float distance = 0f;
             for(int i = 0; i < values.Count(); i++)
             {
                 distance += ((values[i] - pointValues[i]) * (values[i] - pointValues[i]));
@@ -111,7 +125,7 @@ namespace Cluster_Algorithm
         ///----------------------ToString Methods-----------------------------//
 
         /// <summary>
-        /// Return a string holding the values in values and the label.
+        /// Return a string holding the values in values and the label and ID.
         /// </summary>
         /// <returns></returns>
         override public string ToString()
@@ -122,6 +136,7 @@ namespace Cluster_Algorithm
                 toString += val + ",";
             }
             toString += label;
+            toString += ",ID: " + id;
             return toString;
         }
 

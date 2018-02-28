@@ -52,7 +52,7 @@ namespace TestCases
         [TestMethod]
         public void CompleteLinkageCluster4()
         {
-            Start test = new Start(@"..\..\..\Data\DistanceSample2Dx.csv");
+            Start test = new Start(@"..\..\..\Data\DistanceSample2DComplete.csv");
             List<DataPoint> temp = test.GetDataPoints();
             CompleteLinkage link = new CompleteLinkage(2, temp);
             link.Run();

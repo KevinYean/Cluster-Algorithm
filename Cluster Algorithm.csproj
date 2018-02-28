@@ -45,6 +45,7 @@
     <Compile Include="Cluster.cs" />
     <Compile Include="DataPoint.cs" />
     <Compile Include="FileReader.cs" />
+    <Compile Include="HammingDistance.cs" />
     <Compile Include="Lloyds.cs" />
     <Compile Include="Linkage.cs" />
     <Compile Include="AverageLinkage.cs" />
@@ -55,12 +56,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Data\DistanceSample1Dz.csv" />
+    <None Include="Data\DistanceSample1DHamming.csv" />
+    <None Include="Data\DistanceSample1DAverage.csv" />
     <None Include="Data\DistanceSample1Dx.csv" />
     <None Include="Data\DistanceSample1D.csv" />
-    <None Include="Data\DistanceSample2Dz.csv" />
-    <None Include="Data\DistanceSample2Dx.csv" />
-    <None Include="Data\DistanceSample3Dz.csv" />
+    <None Include="Data\DistanceSample2DLloyd.csv" />
+    <None Include="Data\DistanceSample2DAverage.csv" />
+    <None Include="Data\DistanceSample2DComplete.csv" />
+    <None Include="Data\DistanceSample3DAverage.csv" />
     <None Include="Data\DistanceSample3D.csv" />
     <None Include="Data\IrisData.csv" />
     <None Include="Data\KnowledgeData.csv" />

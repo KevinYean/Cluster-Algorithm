@@ -48,6 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HammingDistanceTest.cs" />
     <Compile Include="AverageLinkageTest.cs" />
     <Compile Include="CompleteLinkageTest.cs" />
     <Compile Include="DataPointTest.cs" />

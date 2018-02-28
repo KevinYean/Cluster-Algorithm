@@ -62,7 +62,7 @@ namespace Cluster_Algorithm
                 int clusterTwo = clusterPairsList[x].clusterTwo;
                 int clusterOneSize = clusterList[clusterOne].GetDataPoints().Count();
                 int clusterTwoSize = clusterList[clusterTwo].GetDataPoints().Count();
-                float distance = 0;
+                float distance = 0f;
                 //Go through every datapoint in cluster one
                 for (int i = 0; i < clusterOneSize; i++)
                 {
@@ -80,29 +80,6 @@ namespace Cluster_Algorithm
                 //Console.WriteLine("Avg Distance: " + distance);
                 clusterPairsList[x].distance = distance;
             }
-        }
-
-        /// <summary>
-        /// Merges Closest Clusters together
-        /// </summary>
-        public void MergeClusters()
-        {
-            int clusterOne = -1;
-            int clusterTwo = -1;
-            float distance = -1;
-
-            for (int x = 0; x < clusterPairsList.Count; x++)
-            {
-                if (clusterPairsList[x].distance < distance || distance == -1)
-                {
-                    clusterOne = clusterPairsList[x].clusterOne;
-                    clusterTwo = clusterPairsList[x].clusterTwo;
-                    distance = clusterPairsList[x].distance;
-                }
-            }
-            //Console.WriteLine("DISTANCE2   " + distance);
-            clusterList[clusterOne].MergeCluster(clusterList[clusterTwo]); //Merge
-            clusterList.RemoveAt(clusterTwo);//Remove second cluster from list.
         }
     }
 }

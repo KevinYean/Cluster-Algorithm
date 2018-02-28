@@ -24,7 +24,8 @@ namespace Cluster_Algorithm
     {
         private List<DataPoint> dataList; //List of Data Points
         private List<DataPointPair> dataPairList; //List of DataPairs
-        private DataPoint centroidPoint;
+        private DataPoint centroidPoint; //Center
+        private bool centroidIsChangedFlag;
 
         /// <summary>
         /// Initiliazes a constructor which creates a new list of dataPoints.
@@ -32,6 +33,7 @@ namespace Cluster_Algorithm
         public Cluster()
         {
             dataList = new List<DataPoint>();
+            centroidIsChangedFlag = false;
         }
 
         /// <summary>
@@ -43,6 +45,7 @@ namespace Cluster_Algorithm
         {
             dataList = new List<DataPoint>();
             dataList.Add(newDataPoint);
+            centroidIsChangedFlag = false;
         }
 
         /// <summary>
@@ -58,10 +61,17 @@ namespace Cluster_Algorithm
                 {
                     DataPointPair tempPointPair = new DataPointPair();
                     tempPointPair.pointOne = i;
+                    tempPointPair.idOne = dataList[i].GetID();
                     tempPointPair.pointTwo = y;
+                    tempPointPair.idTwo = dataList[y].GetID();
                     dataPairList.Add(tempPointPair);
                 }
             }
+        }
+
+        public void SetDataList(List<DataPoint> newDataList)
+        {
+            dataList = new List<DataPoint>(newDataList);
         }
 
         /// <summary>
@@ -110,7 +120,7 @@ namespace Cluster_Algorithm
         /// <returns></returns>
         public float GetClusterAverageDistance()
         {
-            float avgDistance = 0;
+            float avgDistance = 0f;
             //Go through every data pairs
             for(int i = 0; i < dataPairList.Count; i++)
             {
@@ -126,23 +136,77 @@ namespace Cluster_Algorithm
         public void SetCentroidPoint()
         {
             List<float> values = new List<float>();
-            for(int i = 0; i < dataList[0].GetValuesLength(); i++)
+            if (dataList.Count != 0)
             {
-                float tempVal = 0;
-                for(int x = 0; x < dataList.Count; x++)
+                //Console.WriteLine("kevin " + dataList[0].GetValuesLength());
+                //Console.ReadLine();
+                for (int i = 0; i < dataList[0].GetValuesLength(); i++)
                 {
-                    tempVal += dataList[x].GetValues()[i];
+                    float tempVal = 0f;
+                    for (int x = 0; x < dataList.Count; x++)
+                    {
+                        tempVal += dataList[x].GetValues()[i];
+                    }
+                    tempVal = tempVal / dataList.Count;
+                    values.Add(tempVal);
                 }
-                tempVal = tempVal / dataList.Count;
-                values.Add(tempVal);
-            }
 
-            centroidPoint = new DataPoint(values.ToArray());
+
+
+                DataPoint tempPoint = new DataPoint(values.ToArray(), 1);
+                //Console.WriteLine(tempPoint.ToStringValues());
+                //Console.WriteLine(centroidPoint.ToStringValues());
+                //Console.WriteLine();
+
+                if (centroidPoint.GetValues().SequenceEqual(tempPoint.GetValues()))
+                {
+                    centroidIsChangedFlag = false;
+                }
+                else
+                {
+                    centroidIsChangedFlag = true;
+                }
+                centroidPoint = tempPoint;
+            }
+        }
+
+        public bool GetCentroidIsChangedFlag()
+        {
+            return centroidIsChangedFlag;
+        }
+
+        public void SetInitCentroidPoint(DataPoint newCenter)
+        {
+            centroidPoint = newCenter;//might have reference problem later down the line
+        }
+
+        /// <summary>
+        /// Method returns the avg distance of all points in the cluster to the given center
+        /// </summary>
+        public float GetAverageDistancePointstoCenter()
+        {
+            float avg = 0;
+            foreach(DataPoint datapoint in dataList)
+            {
+                float distance = datapoint.GetDistanceDataPoint(centroidPoint.GetValues());
+                avg += distance;
+            }
+            avg = avg / dataList.Count;
+            return avg;
         }
 
         public DataPoint GetCentroidPoint()
         {
             return centroidPoint;
+        }
+        
+        /// <summary>
+        /// Add a new Datapoint to the list of data points.
+        /// </summary>
+        /// <param name="newDataPoint"></param>
+        public void AddDataPoint(DataPoint newDataPoint)
+        {
+            dataList.Add(newDataPoint);
         }
 
         /// <summary>
@@ -155,6 +219,15 @@ namespace Cluster_Algorithm
         }
 
         /// <summary>
+        /// Method returns the DataPairs
+        /// </summary>
+        /// <returns></returns>
+        public List<DataPointPair> GetDataPairs()
+        {
+            return dataPairList;
+        }
+
+        /// <summary>
         /// Merges two clusters by having this cluster take all datapoints from the other cluster.
         /// </summary>
         public void MergeCluster(Cluster otherCluster) 
@@ -163,6 +236,21 @@ namespace Cluster_Algorithm
             {
                 dataList.Add(otherCluster.GetDataPoints()[i]);
             }
+        }
+
+        public int GetPairs(int id1,int id2)
+        {
+            int edgeVal = 0;
+            //Go through all the datapoints in the cluster
+            foreach(DataPoint dataPoint in dataList)
+            {
+                //Check if they exist
+                if(dataPoint.GetID() == id1 || dataPoint.GetID() == id2)
+                {
+                    edgeVal++;
+                }
+            }
+            return edgeVal;
         }
     }
 }

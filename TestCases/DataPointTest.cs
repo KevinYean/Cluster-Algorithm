@@ -12,11 +12,11 @@ namespace TestCases
         public void GetDistanceDataPoint1()
         {
             float[] array1 = new float[] { 1 };
-            DataPoint data1 = new DataPoint(2);
+            DataPoint data1 = new DataPoint(2,1);
             data1.SetValues(array1);
 
             float[] array2 = new float[] { 4 };
-            DataPoint data2 = new DataPoint(2);
+            DataPoint data2 = new DataPoint(2,1);
             data2.SetValues(array2);
 
             float[] array = data2.GetValues();
@@ -29,11 +29,11 @@ namespace TestCases
         public void GetDistanceDataPoint2()
         {
             float[] array1 = new float[] { 2 };
-            DataPoint data1 = new DataPoint(2);
+            DataPoint data1 = new DataPoint(2,1);
             data1.SetValues(array1);
 
             float[] array2 = new float[] { 8 };
-            DataPoint data2 = new DataPoint(2);
+            DataPoint data2 = new DataPoint(2,1);
             data2.SetValues(array2);
 
             float[] array = data2.GetValues();
@@ -46,11 +46,11 @@ namespace TestCases
         public void GetDistanceDataPoint3()
         {
             float[] array1 = new float[] { -4 };
-            DataPoint data1 = new DataPoint(2);
+            DataPoint data1 = new DataPoint(2,1);
             data1.SetValues(array1);
 
             float[] array2 = new float[] { 10 };
-            DataPoint data2 = new DataPoint(2);
+            DataPoint data2 = new DataPoint(2,1);
             data2.SetValues(array2);
 
             float[] array = data2.GetValues();
@@ -63,11 +63,11 @@ namespace TestCases
         public void GetDistanceDataPoint4()
         {
             float[] array1 = new float[] { 5,1 };
-            DataPoint data1 = new DataPoint(3);
+            DataPoint data1 = new DataPoint(3,1);
             data1.SetValues(array1);
 
             float[] array2 = new float[] {1,-2 };
-            DataPoint data2 = new DataPoint(3);
+            DataPoint data2 = new DataPoint(3,1);
             data2.SetValues(array2);
 
             float[] array = data2.GetValues();
@@ -80,11 +80,11 @@ namespace TestCases
         public void GetDistanceDataPoint5()
         {
             float[] array1 = new float[] { 0,0,-1};
-            DataPoint data1 = new DataPoint(4);
+            DataPoint data1 = new DataPoint(4,1);
             data1.SetValues(array1);
 
             float[] array2 = new float[] { 8, 6, -1 };
-            DataPoint data2 = new DataPoint(4);
+            DataPoint data2 = new DataPoint(4,1);
             data2.SetValues(array2);
 
             float[] array = data2.GetValues();

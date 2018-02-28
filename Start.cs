@@ -18,7 +18,7 @@ namespace Cluster_Algorithm
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Start main = new Start(@"..\..\Data\IrisData.csv");
+            Start main = new Start(@"..\..\Data\KnowledgeData.csv");
             main.Begin(3);
         }
 
@@ -48,9 +48,13 @@ namespace Cluster_Algorithm
         {
             Console.WriteLine("Start");
             Console.WriteLine();
+
             RunSingleLinkage(kCluster);
             RunCompleteLinkage(kCluster);
             RunAverageLinkage(kCluster);
+            RunLloyd(kCluster);
+
+            //RunHammingDistance(kCluster);
             Console.ReadLine();
         }
 
@@ -65,7 +69,8 @@ namespace Cluster_Algorithm
             singleLinkage.Run();
             //Console.WriteLine(singleLinkage.ClusterPairsToString());
             //Console.WriteLine("Total Number of ClusterPairs:" + singleLinkage.GetClusterPairsCount());
-            Console.WriteLine(singleLinkage.ClustersToString());
+            //Console.WriteLine(singleLinkage.ClustersToString());
+            RunHammingDistance(kCluster, singleLinkage.GetClusters());
         }
 
         /// <summary>
@@ -79,7 +84,8 @@ namespace Cluster_Algorithm
             completeLinkage.Run();
             //Console.WriteLine(completeLinkage.ClusterPairsToString());
             //Console.WriteLine("Total Number of ClusterPairs:" + completeLinkage.GetClusterPairsCount());
-            Console.WriteLine(completeLinkage.ClustersToString());
+            //Console.WriteLine(completeLinkage.ClustersToString());
+            RunHammingDistance(kCluster, completeLinkage.GetClusters());
         }
 
         /// <summary>
@@ -93,7 +99,31 @@ namespace Cluster_Algorithm
             averageLinkage.Run();
             //Console.WriteLine(singleLinkage.ClusterPairsToString());
             //Console.WriteLine("Total Number of ClusterPairs:" + singleLinkage.GetClusterPairsCount());
-            Console.WriteLine(averageLinkage.ClustersToString());
+            //Console.WriteLine(averageLinkage.ClustersToString());
+            RunHammingDistance(kCluster, averageLinkage.GetClusters());
+        }
+
+        /// <summary>
+        /// Methods runs Lloyd's Clustering Algorithm also known as K-mean
+        /// </summary>
+        /// <param name="kCluster"></param>
+        public void RunLloyd(int kCluster)
+        {
+            Console.WriteLine("Lloyds/K Mean Cluster");
+            Lloyds lloyd = new Lloyds(kCluster, dataList);
+            lloyd.Run();
+            RunHammingDistance(kCluster, lloyd.GetClusters());
+        }
+
+        /// <summary>
+        /// Method runs the hamming distance with a list of cluster to the target truth.
+        /// </summary>
+        public void RunHammingDistance(int kCluster,List<Cluster> clustersC)
+        {
+            HammingDistance ham = new HammingDistance(clustersC);
+            ham.SetTargetClusterList(kCluster, dataList);
+            Console.WriteLine("\nHamming Distance:" + ham.GetHammingDistance()+'\n');
+           
         }
 
         /// <summary>
@@ -106,6 +136,7 @@ namespace Cluster_Algorithm
 
             //For each elements in the dataStringList, convert all values except the last row into
             //an float then save the values to DataPoint and the last one as the label.
+            int id = 1;
             foreach (string line in dataStringList)
             {
                 List<string> dataValueList = new List<string>();
@@ -118,12 +149,12 @@ namespace Cluster_Algorithm
                 List<float> dataValueIntList = new List<float>();
                 dataValueIntList = dataValueList.ConvertAll(float.Parse);
 
-                DataPoint newDataPoint = new DataPoint(attributeNames.Count);
+                DataPoint newDataPoint = new DataPoint(attributeNames.Count,id);
                 newDataPoint.SetValues(dataValueIntList.ToArray());
                 newDataPoint.SetLabel(label);
 
                 dataList.Add(newDataPoint);
-
+                id++;
                 //Console.WriteLine(line);
             }
         }

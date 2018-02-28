@@ -61,11 +61,7 @@ namespace Cluster_Algorithm
                 foreach (DataPoint data in cluster.GetDataPoints())
                 {
                     toString += "Data: ";
-                    foreach (float value in data.GetValues())
-                    {
-                        toString += value + " , ";
-                    }
-                    toString += data.GetLabel();
+                    toString += data.ToString();
                     toString += "\n";
                 }
             }
@@ -139,6 +135,28 @@ namespace Cluster_Algorithm
         public int GetK()
         {
             return kClusters;
+        }
+
+        /// <summary>
+        /// Merges Closest Clusters together
+        /// </summary>
+        public void MergeClusters()
+        {
+            int clusterOne = -1;
+            int clusterTwo = -1;
+            float distance = -1f;
+
+            for (int x = 0; x < clusterPairsList.Count; x++)
+            {
+                if (clusterPairsList[x].distance < distance || distance == -1f)
+                {
+                    clusterOne = clusterPairsList[x].clusterOne;
+                    clusterTwo = clusterPairsList[x].clusterTwo;
+                    distance = clusterPairsList[x].distance;
+                }
+            }
+            clusterList[clusterOne].MergeCluster(clusterList[clusterTwo]); //Merge
+            clusterList.RemoveAt(clusterTwo);//Remove second cluster from list.
         }
 
         /// <summary>
