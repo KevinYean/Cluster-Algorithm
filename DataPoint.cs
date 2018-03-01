@@ -25,6 +25,7 @@ namespace Cluster_Algorithm
         private float[] values;
         private string label;
         private int id;
+        private int clusterID;
 
         /// <summary>
         /// Initliazes a newly created DataPoint by assigning the size of the two arrays with Array Size

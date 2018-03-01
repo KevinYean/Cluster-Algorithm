@@ -68,6 +68,10 @@ namespace Cluster_Algorithm
             return toString;
         }
 
+        /// <summary>
+        /// Method returns a string representation of the clusters groups.
+        /// </summary>
+        /// <returns></returns>
         public string ClusterGroupToString()
         {
             string toString = "";
@@ -78,7 +82,7 @@ namespace Cluster_Algorithm
                 foreach (IGrouping<string, DataPoint> points in query)
                 {
                     string test = points.Key;
-                    toString += (test + "--Point Count: " +  points.Count() + "\n");
+                    toString += ("Label: " + test + " - Amount: " +  points.Count() + "\n");
                 }
                 toString += "\n";
             }

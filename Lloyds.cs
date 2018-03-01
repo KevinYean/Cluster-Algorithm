@@ -28,47 +28,145 @@ namespace Cluster_Algorithm
         }
 
         /// <summary>
-        /// Runs Lloyd's Method
+        /// Method runs Lloyds Method for clustering
         /// </summary>
-        public void Run()
+        /// <param name="loops"></param>
+        public void Run(int loops)
         {
-            //Run many times 100 times maybes and select the one with the lowest k-mean cost is selected
-            //Pick k random points (call them centers)
-            //Until convergence
-            //Assign each point to its closest center
-            //Compute the mean of each cluster
-            //Means are the new centers of clusters
-            //Algorithm converges if the clusters dont change in two consecuitve iterations.
-
-            //K-mean objective cost
-
-            for (int i = 0; i < 100; i++)
+            //Run many times as loops was set
+            for (int i = 0; i < loops; i++)
             {
-                System.Threading.Thread.Sleep(50);
+                //Pick k random points (call them centers)
+                System.Threading.Thread.Sleep(10); //To reduce the odds of having the same seed be used to generate random numbers.
                 convergence = 2;
                 SetKCenter();
-                clusterList[0].GetCentroidPoint();
+                //Until convergence
                 while (convergence != 0)
                 {
-                    EmptyClusters();
+                    EmptyClusters(); //Remove all datapoints in all clusters.
+                    //Assign each point to its closest center
                     SetPointsToCluster();
+                    //Compute the mean of each cluster
                     foreach (Cluster cluster in clusterList)
                     {
-
                         cluster.SetCentroidPoint();
                     }
+                    //Checks if any centers have changed and sets the appropriate flags.
                     IsClusterCenterChanged();
                 }
                 float tempKmean = GetKMeanCost();
-                //Console.WriteLine("K Mean: " + tempKmean);
+                //New K-mean objective cost
                 if (kMean == -1 || tempKmean <kMean)
                 {
-                    Console.WriteLine("New Lowest K Mean: " + tempKmean);
-                    //Console.WriteLine(clusterList[0].GetCentroidPoint());
-                    //Console.WriteLine(clusterList[1].GetCentroidPoint());
+                    //Console.WriteLine("New Lowest K Mean: " + tempKmean); //To remove
                     kMean = tempKmean;
-                    bestClusterList = new List<Cluster>(clusterList);
+                    bestClusterList = new List<Cluster>(clusterList); //Save the current best list of clusters.
                 }       
+            }
+        }
+
+        /// <summary>
+        /// Method removes all the datapoints from the every clusters in clusterlist.
+        /// </summary>
+        public void EmptyClusters()
+        {
+            foreach (Cluster cluster in clusterList)
+            {
+                cluster.SetDataList(new List<DataPoint>());//Empty list;
+            }
+        }
+
+        /// <summary>
+        /// Returns the list of clusters bestClusterList.
+        /// </summary>
+        /// <returns></returns>
+        public List<Cluster> GetBestClusters()
+        {
+            return bestClusterList;
+        }
+
+        /// <summary>
+        /// For each cluster check is their centers have changed.
+        /// </summary>
+        public void IsClusterCenterChanged()
+        {
+            foreach (Cluster cluster in clusterList)
+            {
+                if (cluster.GetCentroidIsChangedFlag() != false)
+                {
+                    convergence = 2;
+                    return;
+                }
+
+            }
+            convergence--; //Should only be reach if all the previous result return 2;
+        }
+
+        /// <summary>
+        /// Method return the total Kmean cost every clusters in clusterList
+        /// </summary>
+        /// <returns></returns>
+        public float GetKMeanCost()
+        {
+            float newKmean = 0;
+            foreach (Cluster cluster in clusterList)
+            {
+                foreach (DataPoint datapoint in cluster.GetDataPoints())
+                {
+                    newKmean += (datapoint.GetDistanceDataPoint(cluster.GetCentroidPoint().GetValues()));
+                }
+            }
+            return newKmean;
+        }
+
+        /// <summary>
+        /// Method returns the best kMean currently recorded.
+        /// </summary>
+        /// <returns></returns>
+        public float GetBestKMeanCost()
+        {
+            return kMean;
+        }
+
+        /// <summary>
+        /// Sets the k random points from datapoints as centers
+        /// </summary>
+        public void SetKCenter()
+        {
+            clusterList = new List<Cluster>();
+            Random random = new Random();
+            for (int i = 0; i < kClusters; i++)
+            {
+                int rand = random.Next(0, dataList.Count());
+                Cluster tempCluster = new Cluster();
+                tempCluster.SetInitCentroidPoint(dataList[rand]);
+                clusterList.Add(tempCluster);
+            }
+        }
+
+        /// <summary>
+        /// Assigns each datapoints to its closest cluster given the cluster center
+        /// </summary>
+        public void SetPointsToCluster()
+        {
+            //For eachDataPoints calculate the closest cluster center
+            foreach (DataPoint datapoint in dataList)
+            {
+                int loopNum = 0;
+                float distance = -1f;
+                int clusterID = -1;
+                foreach (Cluster cluster in clusterList)
+                {
+                    float tempDistance = datapoint.GetDistanceDataPoint(cluster.GetCentroidPoint().GetValues());
+                    if (tempDistance < distance || distance == -1f)
+                    {
+                        clusterID = loopNum;
+                        distance = tempDistance;
+                    }
+                    loopNum++;
+                }
+                clusterList[clusterID].AddDataPoint(datapoint);
+
             }
         }
 
@@ -92,6 +190,10 @@ namespace Cluster_Algorithm
             return toString;
         }
 
+        /// <summary>
+        /// Returns a string representation of each datapoints group in every cluster.
+        /// </summary>
+        /// <returns></returns>
         public string ClusterGroupToString()
         {
             string toString = "";
@@ -109,108 +211,5 @@ namespace Cluster_Algorithm
             return toString;
         }
 
-        public void EmptyClusters()
-        {
-            foreach(Cluster cluster in clusterList)
-            {
-                cluster.SetDataList(new List<DataPoint>());//Empty list;
-            }
-        }
-
-        /// <summary>
-        /// For each cluster check is their centers have changed.
-        /// </summary>
-        public void IsClusterCenterChanged()
-        {
-            
-            foreach(Cluster cluster in clusterList)
-            {
-                //Console.WriteLine("Convergence Status: " + cluster.GetCentroidIsChangedFlag());
-                if (cluster.GetCentroidIsChangedFlag() != false)
-                {
-                    convergence = 2;
-                    return;
-                }
-
-            }
-            convergence--; //Should only be reach if all the previous result return 2;
-        }
-
-        /// <summary>
-        /// Returns the list of clusters clusterlist.
-        /// </summary>
-        /// <returns></returns>
-        public List<Cluster> GetClusters()
-        {
-            return bestClusterList;
-        }
-
-        public float GetKMeanCost()
-        {
-             /*float newKMean = 0;
-             foreach(Cluster cluster in clusterList)
-             {
-                 float tempKmean = cluster.GetAverageDistancePointstoCenter();
-                 newKMean += tempKmean;
-             }
-             newKMean = newKMean / clusterList.Count;
-             return newKMean;*/
-
-            float newKmean = 0;
-            foreach(Cluster cluster in clusterList)
-            {
-                foreach(DataPoint datapoint in cluster.GetDataPoints())
-                {
-                    newKmean += (datapoint.GetDistanceDataPoint(cluster.GetCentroidPoint().GetValues()));
-                }
-            }
-
-            return newKmean;
-        } 
-
-        /// <summary>
-        /// Sets the k random points from datapoints as centers
-        /// </summary>
-        public void SetKCenter()
-        {
-            clusterList = new List<Cluster>();
-            Random random = new Random();
-            for(int i = 0; i < kClusters; i++)
-            {
-                int rand = random.Next(0, dataList.Count());
-                //Console.WriteLine("Random Center:" + dataList[rand].ToStringValues());
-                Cluster tempCluster = new Cluster();
-                tempCluster.SetInitCentroidPoint(dataList[rand]);
-                clusterList.Add(tempCluster);
-            }
-        }
-
-        /// <summary>
-        /// Assigns each datapoints to its closest cluster given the cluster center
-        /// </summary>
-        public void SetPointsToCluster()
-        {
-            //For eachDataPoints calculate the closest cluster center
-            foreach(DataPoint datapoint in dataList)
-            {
-                int loopNum = 0;
-                float distance = -1f;
-                int clusterID = -1;
-                foreach(Cluster cluster in clusterList)
-                {
-                    float tempDistance = datapoint.GetDistanceDataPoint(cluster.GetCentroidPoint().GetValues());
-                    if(tempDistance < distance || distance == -1f)
-                    {
-                        clusterID = loopNum;
-                        distance = tempDistance;
-                    }
-                    loopNum++;
-                }
-                clusterList[clusterID].AddDataPoint(datapoint);
-                //Console.WriteLine("Cluster ID " + clusterID);
-
-            }
-            //Console.ReadLine();
-        }
     }  
 }

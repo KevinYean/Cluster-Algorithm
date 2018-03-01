@@ -12,6 +12,10 @@ namespace Cluster_Algorithm
         private List<Cluster> targetClusterList;
         private int nPoints;
 
+        /// <summary>
+        /// Initializes Hamming distance with the tempOutputClisterList
+        /// </summary>
+        /// <param name="tempOuputClusterList"></param>
         public HammingDistance(List<Cluster> tempOuputClusterList)
         {
             outputClusterList = new List<Cluster>(tempOuputClusterList);
@@ -34,25 +38,16 @@ namespace Cluster_Algorithm
                 foreach (DataPoint p in points)
                 {
                     tempCluster.AddDataPoint(p); //Add datapoint to cluster
-                    //Console.WriteLine(p.ToString());
 
                 }
                 targetClusterList.Add(tempCluster);//Add cluster to cluster list
             }
-
-            //TO COMMENT
-            /*foreach(Cluster cluster in targetClusterList)
-            {
-                Console.WriteLine("Cluster: ");
-                foreach(DataPoint data in cluster.GetDataPoints())
-                {
-                    Console.WriteLine(data.ToString());
-                }
-            }*/
         }
 
-
-
+        /// <summary>
+        /// Gets the HammingDistance
+        /// </summary>
+        /// <returns></returns>
         public float GetHammingDistance()
         {
             //Consider Two clusterings C and C' of the same data set which has n points
@@ -159,19 +154,19 @@ namespace Cluster_Algorithm
 
         /// <summary>
         /// Method by Mark Dominus
+        /// // This function gets the total number of unique combinations based upon N and K.
+        /// N is the total number of items.
+        /// K is the size of the group.
+        /// Total number of unique combinations = N! / ( K! (N - K)! ).
+        /// This function is less efficient, but is more likely to not overflow when N and K are large.
+        /// Taken from:  http://blog.plover.com/math/choose.html
         /// </summary>
         /// <param name="N"></param>
         /// <param name="K"></param>
         /// <returns></returns>
         public float GetBinCoeff(float N, float K)
         {
-            // This function gets the total number of unique combinations based upon N and K.
-            // N is the total number of items.
-            // K is the size of the group.
-            // Total number of unique combinations = N! / ( K! (N - K)! ).
-            // This function is less efficient, but is more likely to not overflow when N and K are large.
-            // Taken from:  http://blog.plover.com/math/choose.html
-            //
+
             float r = 1;
             float d;
             if (K > N) return 0;

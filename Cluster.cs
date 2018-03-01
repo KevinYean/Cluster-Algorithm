@@ -49,6 +49,15 @@ namespace Cluster_Algorithm
         }
 
         /// <summary>
+        /// Method sets dataList with a brand new list of Datapoints.
+        /// </summary>
+        /// <param name="newDataList"></param>
+        public void SetDataList(List<DataPoint> newDataList)
+        {
+            dataList = new List<DataPoint>(newDataList);
+        }
+
+        /// <summary>
         /// Create all DataPointPairs
         /// </summary>
         public void CreateDataPointPairs()
@@ -67,11 +76,6 @@ namespace Cluster_Algorithm
                     dataPairList.Add(tempPointPair);
                 }
             }
-        }
-
-        public void SetDataList(List<DataPoint> newDataList)
-        {
-            dataList = new List<DataPoint>(newDataList);
         }
 
         /// <summary>
@@ -131,15 +135,13 @@ namespace Cluster_Algorithm
         }
 
         /// <summary>
-        /// Set the centroid of the points in the cluster.
+        /// Set the centroid of the cluster given the the points in the cluster.
         /// </summary>
         public void SetCentroidPoint()
         {
             List<float> values = new List<float>();
-            if (dataList.Count != 0)
+            if (dataList.Count != 0) // Awful way to prevent errors when the Cluster has zero points
             {
-                //Console.WriteLine("kevin " + dataList[0].GetValuesLength());
-                //Console.ReadLine();
                 for (int i = 0; i < dataList[0].GetValuesLength(); i++)
                 {
                     float tempVal = 0f;
@@ -150,13 +152,7 @@ namespace Cluster_Algorithm
                     tempVal = tempVal / dataList.Count;
                     values.Add(tempVal);
                 }
-
-
-
                 DataPoint tempPoint = new DataPoint(values.ToArray(), 1);
-                //Console.WriteLine(tempPoint.ToStringValues());
-                //Console.WriteLine(centroidPoint.ToStringValues());
-                //Console.WriteLine();
 
                 if (centroidPoint.GetValues().SequenceEqual(tempPoint.GetValues()))
                 {
@@ -170,11 +166,19 @@ namespace Cluster_Algorithm
             }
         }
 
+        /// <summary>
+        /// Method Return the boolean flag;
+        /// </summary>
+        /// <returns></returns>
         public bool GetCentroidIsChangedFlag()
         {
             return centroidIsChangedFlag;
         }
 
+        /// <summary>
+        /// Method sets the new Centroid point of a cluster
+        /// </summary>
+        /// <param name="newCenter"></param>
         public void SetInitCentroidPoint(DataPoint newCenter)
         {
             centroidPoint = newCenter;//might have reference problem later down the line
@@ -195,6 +199,10 @@ namespace Cluster_Algorithm
             return avg;
         }
 
+        /// <summary>
+        /// Method return the Centroidpoint
+        /// </summary>
+        /// <returns></returns>
         public DataPoint GetCentroidPoint()
         {
             return centroidPoint;
@@ -238,6 +246,12 @@ namespace Cluster_Algorithm
             }
         }
 
+        /// <summary>
+        /// Method is used to see if the edge pair ID provided exist in this cluster
+        /// </summary>
+        /// <param name="id1"></param>
+        /// <param name="id2"></param>
+        /// <returns></returns>
         public int GetPairs(int id1,int id2)
         {
             int edgeVal = 0;

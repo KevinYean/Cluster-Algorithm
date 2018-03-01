@@ -15,8 +15,8 @@ namespace TestCases
             Start test = new Start(@"..\..\..\Data\DistanceSample1DLloyd.csv");
             List<DataPoint> temp = test.GetDataPoints();
             Lloyds link = new Lloyds(2, temp);
-            link.Run();
-            Assert.AreEqual(link.GetKMeanCost(),6.4f);
+            link.Run(100);
+            Assert.AreEqual(link.GetBestKMeanCost(),6.4f);
         }
 
 
