@@ -18,8 +18,8 @@ namespace Cluster_Algorithm
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Start main = new Start(@"..\..\Data\KnowledgeData.csv");
-            main.Begin(3);
+            Start main = new Start(@"..\..\Data\DistanceSample1DLloyd.csv");
+            main.Begin(2);
         }
 
         /// <summary>
@@ -49,9 +49,9 @@ namespace Cluster_Algorithm
             Console.WriteLine("Start");
             Console.WriteLine();
 
-            RunSingleLinkage(kCluster);
-            RunCompleteLinkage(kCluster);
-            RunAverageLinkage(kCluster);
+            //RunSingleLinkage(kCluster);
+            //RunCompleteLinkage(kCluster);
+            //RunAverageLinkage(kCluster);
             RunLloyd(kCluster);
 
             //RunHammingDistance(kCluster);
@@ -69,7 +69,7 @@ namespace Cluster_Algorithm
             singleLinkage.Run();
             //Console.WriteLine(singleLinkage.ClusterPairsToString());
             //Console.WriteLine("Total Number of ClusterPairs:" + singleLinkage.GetClusterPairsCount());
-            //Console.WriteLine(singleLinkage.ClustersToString());
+            Console.WriteLine(singleLinkage.ClusterGroupToString());
             RunHammingDistance(kCluster, singleLinkage.GetClusters());
         }
 
@@ -84,7 +84,7 @@ namespace Cluster_Algorithm
             completeLinkage.Run();
             //Console.WriteLine(completeLinkage.ClusterPairsToString());
             //Console.WriteLine("Total Number of ClusterPairs:" + completeLinkage.GetClusterPairsCount());
-            //Console.WriteLine(completeLinkage.ClustersToString());
+            Console.WriteLine(completeLinkage.ClusterGroupToString());
             RunHammingDistance(kCluster, completeLinkage.GetClusters());
         }
 
@@ -99,7 +99,7 @@ namespace Cluster_Algorithm
             averageLinkage.Run();
             //Console.WriteLine(singleLinkage.ClusterPairsToString());
             //Console.WriteLine("Total Number of ClusterPairs:" + singleLinkage.GetClusterPairsCount());
-            //Console.WriteLine(averageLinkage.ClustersToString());
+            Console.WriteLine(averageLinkage.ClusterGroupToString());
             RunHammingDistance(kCluster, averageLinkage.GetClusters());
         }
 
@@ -112,7 +112,9 @@ namespace Cluster_Algorithm
             Console.WriteLine("Lloyds/K Mean Cluster");
             Lloyds lloyd = new Lloyds(kCluster, dataList);
             lloyd.Run();
+            Console.WriteLine(lloyd.ClusterGroupToString());
             RunHammingDistance(kCluster, lloyd.GetClusters());
+
         }
 
         /// <summary>

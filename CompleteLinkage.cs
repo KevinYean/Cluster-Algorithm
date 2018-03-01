@@ -42,6 +42,8 @@ namespace Cluster_Algorithm
                 CreateClusterPairs(); //Create Cluster Pairs
                 SetClusterPairsSingleLinkageDistances(); //Calculate Cluster Pairs distances
                 MergeClusters(); //Merge the two closest clusters
+                //Console.WriteLine("--------Clusters: ");
+                //Console.Write(ClustersToString());
             }
         }
 

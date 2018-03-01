@@ -44,9 +44,10 @@ namespace Cluster_Algorithm
 
             for (int i = 0; i < 100; i++)
             {
-                System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(50);
                 convergence = 2;
                 SetKCenter();
+                clusterList[0].GetCentroidPoint();
                 while (convergence != 0)
                 {
                     EmptyClusters();
@@ -59,15 +60,53 @@ namespace Cluster_Algorithm
                     IsClusterCenterChanged();
                 }
                 float tempKmean = GetKMeanCost();
-               // Console.WriteLine("K Mean: " + tempKmean);
+                //Console.WriteLine("K Mean: " + tempKmean);
                 if (kMean == -1 || tempKmean <kMean)
                 {
-                    //Console.WriteLine("New Lowest K Mean: " + tempKmean);
+                    Console.WriteLine("New Lowest K Mean: " + tempKmean);
+                    //Console.WriteLine(clusterList[0].GetCentroidPoint());
+                    //Console.WriteLine(clusterList[1].GetCentroidPoint());
                     kMean = tempKmean;
                     bestClusterList = new List<Cluster>(clusterList);
+                }       
+            }
+        }
+
+        /// <summary>
+        /// Return a representation of the cluster in a string format.
+        /// </summary>
+        /// <returns></returns>
+        public string ClustersToString()
+        {
+            string toString = "";
+            foreach (Cluster cluster in bestClusterList)
+            {
+                toString += "Cluster: \n";
+                foreach (DataPoint data in cluster.GetDataPoints())
+                {
+                    toString += "Data: ";
+                    toString += data.ToString();
+                    toString += "\n";
                 }
             }
+            return toString;
+        }
 
+        public string ClusterGroupToString()
+        {
+            string toString = "";
+            foreach (Cluster cluster in clusterList)
+            {
+                toString += "Cluster: \n";
+                IEnumerable<IGrouping<string, DataPoint>> query = cluster.GetDataPoints().GroupBy(data => data.GetLabel());
+                foreach (IGrouping<string, DataPoint> points in query)
+                {
+                    string test = points.Key;
+                    toString += (test + "--Point Count: " + points.Count() + "\n");
+                }
+                toString += "\n";
+            }
+            return toString;
         }
 
         public void EmptyClusters()
@@ -108,14 +147,25 @@ namespace Cluster_Algorithm
 
         public float GetKMeanCost()
         {
-            float newKMean = 0;
+             /*float newKMean = 0;
+             foreach(Cluster cluster in clusterList)
+             {
+                 float tempKmean = cluster.GetAverageDistancePointstoCenter();
+                 newKMean += tempKmean;
+             }
+             newKMean = newKMean / clusterList.Count;
+             return newKMean;*/
+
+            float newKmean = 0;
             foreach(Cluster cluster in clusterList)
             {
-                float tempKmean = cluster.GetAverageDistancePointstoCenter();
-                newKMean += tempKmean;
+                foreach(DataPoint datapoint in cluster.GetDataPoints())
+                {
+                    newKmean += (datapoint.GetDistanceDataPoint(cluster.GetCentroidPoint().GetValues()));
+                }
             }
-            newKMean = newKMean / clusterList.Count;
-            return newKMean;
+
+            return newKmean;
         } 
 
         /// <summary>

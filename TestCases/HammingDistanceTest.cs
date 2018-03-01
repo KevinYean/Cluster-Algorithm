@@ -104,6 +104,33 @@ namespace TestCases
             float on = link.GetBinCoeff(10, 2);
             Assert.AreEqual(on, 45);
         }
+
+        [TestMethod]
+        public void GetBinCoeffTest3()
+        {
+            Start test = new Start(@"..\..\..\Data\KnowledgeData.csv");
+            List<DataPoint> temp = test.GetDataPoints();
+            HammingDistance link = new HammingDistance(new List<Cluster>());
+            float on = link.GetBinCoeff(6, 2);
+            Assert.AreEqual(on, 15);
+        }
+
+        [TestMethod]
+        public void GetHammingDistanceTest1()
+        {
+            Start test = new Start(@"..\..\..\Data\DistanceSample1DHammingz.csv");
+            List<DataPoint> temp = test.GetDataPoints();
+            SingleLinkage single = new SingleLinkage(3,temp);
+            single.Run();
+            HammingDistance link = new HammingDistance(single.GetClusters());
+            link.SetTargetClusterList(3,temp);
+
+            //Result should be .2142
+
+            float on = link.GetBinCoeff(6, 2);
+            Assert.AreEqual(on, 15);
+        }
+
     }
 
 }

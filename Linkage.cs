@@ -68,6 +68,23 @@ namespace Cluster_Algorithm
             return toString;
         }
 
+        public string ClusterGroupToString()
+        {
+            string toString = "";
+            foreach (Cluster cluster in clusterList)
+            {
+                toString += "Cluster: \n";
+                IEnumerable<IGrouping<string, DataPoint>> query = cluster.GetDataPoints().GroupBy(data => data.GetLabel());
+                foreach (IGrouping<string, DataPoint> points in query)
+                {
+                    string test = points.Key;
+                    toString += (test + "--Point Count: " +  points.Count() + "\n");
+                }
+                toString += "\n";
+            }
+            return toString;
+        }
+
         /// <summary>
         /// Returns the number of clusters in clusterList.
         /// </summary>
@@ -157,6 +174,7 @@ namespace Cluster_Algorithm
             }
             clusterList[clusterOne].MergeCluster(clusterList[clusterTwo]); //Merge
             clusterList.RemoveAt(clusterTwo);//Remove second cluster from list.
+            //Console.WriteLine("Distance: " + distance);
         }
 
         /// <summary>

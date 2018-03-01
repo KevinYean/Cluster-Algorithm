@@ -42,10 +42,11 @@ namespace Cluster_Algorithm
             while (clusterList.Count() > kClusters)
             {
                 CreateClusterPairs(); //Create Cluster Pairs
+                //Console.WriteLine(ClustersToString());
                 SetClusterPairsAverageDistances(); //Calculate Cluster Pairs distances
                 //Console.WriteLine(ClusterPairsToString());
                 MergeClusters(); //Merge the two closest clusters
-                //Console.WriteLine(ClustersToString());
+                //Console.WriteLine();
                 //Console.ReadLine();
             }
         }
