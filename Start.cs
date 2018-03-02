@@ -18,8 +18,10 @@ namespace Cluster_Algorithm
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Start main = new Start(@"..\..\Data\SeedData.csv");
-            main.Begin(3);
+            //Start main = new Start(@"..\..\Data\SeedData.csv");
+            //Start main = new Start(@"..\..\Data\KnowledgeData.csv");
+            Start main = new Start(@"..\..\Data\IrisData.csv");
+            main.Begin(3); // int is the Number of clusters to aim for 3 for Iris and Seet and 4 for Knowledge
         }
 
         /// <summary>
@@ -51,6 +53,7 @@ namespace Cluster_Algorithm
             RunCompleteLinkage(kCluster);
             RunAverageLinkage(kCluster);
             RunLloyd(kCluster, 100);
+            RunDBScan(.39f, 3, kCluster);
             Console.WriteLine("Finished Clustering-- ");
             Console.ReadLine();
         }
@@ -104,6 +107,22 @@ namespace Cluster_Algorithm
             Console.WriteLine(lloyd.ClusterGroupToString());
         }
 
+
+        /// <summary>
+        /// Methods runs Lloyd's Clustering Algorithm also known as K-mean
+        /// </summary>
+        /// <param name="kCluster"></param>
+        public void RunDBScan(float distance, int minPts,int kCluster)
+        {
+            Console.WriteLine("DBScan Cluster");
+            DBSCAN dbscan = new DBSCAN(dataList);
+            dbscan.Run(distance,minPts);
+            Console.WriteLine(dbscan.ClusterGroupToString());
+            RunHammingDistance(kCluster, dbscan.clusterList);
+            RunHammingDistanceNoOutliers(kCluster, dbscan.clusterList,dbscan.outliers);
+            //Console.WriteLine(lloyd.ClusterGroupToString());
+        }
+
         /// <summary>
         /// Method runs the hamming distance with a list of cluster to the target truth.
         /// </summary>
@@ -111,8 +130,24 @@ namespace Cluster_Algorithm
         {
             HammingDistance ham = new HammingDistance(clustersC);
             ham.SetTargetClusterList(kCluster, dataList);
-            Console.WriteLine("Hamming Distance:" + ham.GetHammingDistance());
-           
+            Console.WriteLine("Hamming Distance---------:" + ham.GetHammingDistance());
+            //RunHammingDistance(kCluster, SetTargetClusterListNoOutliers
+
+
+        }
+
+        /// <summary>
+        /// Method runs the hamming distance with a list of cluster to the target truth.
+        /// </summary>
+        public void RunHammingDistanceNoOutliers(int kCluster, List<Cluster> clustersC, List<DataPoint> outliers )
+        {
+            HammingDistance ham = new HammingDistance(clustersC);
+            //ham.SetTargetClusterList(kCluster, dataList);
+            ham.SetTargetClusterListNoOutliers(kCluster, dataList,outliers);
+            Console.WriteLine("Hamming Distance No Outliers:" + ham.GetHammingDistance());
+            //RunHammingDistance(kCluster, SetTargetClusterListNoOutliers
+
+
         }
 
         /// <summary>
@@ -164,6 +199,56 @@ namespace Cluster_Algorithm
         public List<DataPoint> GetDataPoints()
         {
             return dataList;
+        }
+
+        //---------------------To Move Somewhere else -----------------------------//
+        //Figureout distance using crude k neightboor
+        public void eDistance(int minPts)
+        {
+            float totalAvg = 0;
+            foreach (DataPoint dataPoint in dataList)
+            {
+                List<KeyValuePair<int, float>> distanceList = new List<KeyValuePair<int, float>>();
+                for (int i = 0; i < minPts-1; i++)
+                {
+                    KeyValuePair<int, float> tempPair = new KeyValuePair<int, float>(-1, -1);
+                    distanceList.Add(tempPair);
+                }
+                foreach(DataPoint dataK in dataList)
+                {
+                     if(dataPoint.GetID() != dataK.GetID())
+                     {
+                        float tempDistance = dataPoint.GetDistanceDataPoint(dataK.GetValues());
+                        if (tempDistance < distanceList[distanceList.Count()-1].Value || distanceList[0].Value == -1)
+                        {
+                            if (distanceList[0].Value == -1)
+                            {
+                                distanceList.RemoveAt(0);
+                            }
+                            else
+                            {
+                                distanceList.RemoveAt(distanceList.Count() - 1);
+                            }
+                            KeyValuePair<int, float> tempPair = new KeyValuePair<int, float>(dataK.GetID(), tempDistance);
+                            distanceList.Add(tempPair);
+                            distanceList = distanceList.OrderBy(o => o.Value).ToList();
+                        }
+                     }
+                 }
+                //Console.WriteLine("----");
+                float avg = 0;
+                foreach(KeyValuePair<int,float> pair in distanceList)
+                {
+                    //Console.WriteLine(pair.ToString());
+                    avg += pair.Value;
+                }
+                avg = avg / (minPts - 1);
+                //Console.WriteLine("Average Distance: " + avg);
+                totalAvg += avg;
+             }
+            totalAvg = totalAvg / dataList.Count();
+            Console.WriteLine("Average Distance: " + totalAvg);
+             return;
         }
     }
 }

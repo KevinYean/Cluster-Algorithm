@@ -39,6 +39,7 @@ namespace Cluster_Algorithm
             //Run as long as the number of clusters is not k
             while (clusterList.Count() > kClusters)
             {
+                //Console.WriteLine("Cluster Count:" + clusterList.Count());
                 CreateClusterPairs(); //Create Cluster Pairs
                 SetClusterPairsSingleLinkageDistances(); //Calculate Cluster Pairs distances
                 MergeClusters(); //Merge the two closest clusters

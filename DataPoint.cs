@@ -26,6 +26,7 @@ namespace Cluster_Algorithm
         private string label;
         private int id;
         private int clusterID;
+        private bool corePoint;
 
         /// <summary>
         /// Initliazes a newly created DataPoint by assigning the size of the two arrays with Array Size
@@ -36,6 +37,7 @@ namespace Cluster_Algorithm
             id = newID;
             attributesName = new string[arraySize];
             values = new float[arraySize-1]; //Attributes size - 1 represent the list of values.
+            corePoint = false;
         }
 
         /// <summary>
@@ -48,6 +50,7 @@ namespace Cluster_Algorithm
             attributesName = new string[arrayData.Count()+1]; //Attributes size + 1 represent the list of values and label
             values = new float[arrayData.Count()];
             SetValues(arrayData);
+            corePoint = false;
         }
 
         /// <summary>
@@ -106,6 +109,43 @@ namespace Cluster_Algorithm
         {
             return label;
         }
+
+        /// <summary>
+        /// Method set core points flag value
+        /// </summary>
+        /// <param name=""></param>
+        public void SetCorePoint(bool newBool)
+        {
+            corePoint = newBool;
+        }
+
+        /// <summary>
+        /// Method returns core point
+        /// </summary>
+        /// <returns></returns>
+        public bool GetCorePoint()
+        {
+            return corePoint;
+        }
+
+        /// <summary>
+        /// Method sets the clusterID
+        /// </summary>
+        /// <param name="id"></param>
+        public void SetClusterID(int id)
+        {
+            clusterID = id;
+        }
+
+        /// <summary>
+        /// Method Returns clusterID
+        /// </summary>
+        /// <returns></returns>
+        public int GetClusterID()
+        {
+            return clusterID;
+        }
+
 
         /// <summary>
         /// Get the distance between two points.

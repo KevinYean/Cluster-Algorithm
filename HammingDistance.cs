@@ -23,16 +23,76 @@ namespace Cluster_Algorithm
         }
 
         /// <summary>
+        /// Method returns a string representation of the clusters groups.
+        /// </summary>
+        /// <returns></returns>
+        public string ClusterGroupToString()
+        {
+            string toString = "";
+            foreach (Cluster cluster in targetClusterList)
+            {
+                toString += "Cluster: \n";
+                IEnumerable<IGrouping<string, DataPoint>> query = cluster.GetDataPoints().GroupBy(data => data.GetLabel());
+                foreach (IGrouping<string, DataPoint> points in query)
+                {
+                    string test = points.Key;
+                    toString += ("Label: " + test + " - Amount: " + points.Count() + "\n");
+                }
+                toString += "\n";
+            }
+            return toString;
+        }
+
+        /// <summary>
         /// Sets the cluster on the targetClusterList
         /// </summary>
         public void SetTargetClusterList(int k,List<DataPoint> newDataList)
         {
+            targetClusterList = new List<Cluster>();
             nPoints = newDataList.Count;
             List<DataPoint> dataList = new List<DataPoint>(newDataList);
 
             //Group the labels together
             IEnumerable<IGrouping<string,DataPoint>> query = dataList.GroupBy(data => data.GetLabel());
             foreach(IGrouping<string,DataPoint> points in query){
+                //Console.WriteLine("Key is " + points.Key);
+                Cluster tempCluster = new Cluster();
+                foreach (DataPoint p in points)
+                {
+                    tempCluster.AddDataPoint(p); //Add datapoint to cluster
+
+                }
+                targetClusterList.Add(tempCluster);//Add cluster to cluster list
+            }
+        }
+
+        /// <summary>
+        /// Sets the cluster on the targetClusterList
+        /// </summary>
+        public void SetTargetClusterListNoOutliers(int k, List<DataPoint> newDataList, List<DataPoint> outliers)
+        {
+            List<DataPoint> dataList = new List<DataPoint>();
+            //Removes outliers
+            foreach (DataPoint dataPoint in newDataList)
+            {
+                bool outlierFlag = false;
+                foreach (DataPoint tempPoint in outliers)
+                {
+                    if(tempPoint.GetID() == dataPoint.GetID())
+                    {
+                        outlierFlag = true; 
+                    }
+                }
+                if(outlierFlag == false) { 
+                    dataList.Add(dataPoint);
+                }
+            }
+            //Console.WriteLine(dataList.Count);
+            nPoints = dataList.Count;
+            //Group the labels together
+            IEnumerable<IGrouping<string, DataPoint>> query = dataList.GroupBy(data => data.GetLabel());
+            foreach (IGrouping<string, DataPoint> points in query)
+            {
                 //Console.WriteLine("Key is " + points.Key);
                 Cluster tempCluster = new Cluster();
                 foreach (DataPoint p in points)
@@ -53,7 +113,7 @@ namespace Cluster_Algorithm
             //Consider Two clusterings C and C' of the same data set which has n points
 
             //---------------------------------//
-            //Let a be the nber of edges that are in cluster in C and between clusters in C'
+            {//Let a be the nber of edges that are in cluster in C and between clusters in C'
             /*First step is to find all the edges that are in cluster in C and have a list of it.
              *Second step is to compare those edges to the same edges in C' and see if they are in between clusters and not in clusters instead
              *Third step is to save that value into variable a
@@ -61,26 +121,27 @@ namespace Cluster_Algorithm
              */
 
             //For each Cluster in C (outputClusterList)
-                //Create Edge Pairs with every Datapoints in cluster in sub C
-                    //For each edge pairs go through all the clusters in C'
-                        //If only one edge is present in a cluster increase a by 1
-                        //If none of the edges are present in a cluster move to next cluster.
-                        //If both edges are found in the same cluster move to next edge pair.
+            //Create Edge Pairs with every Datapoints in cluster in sub C
+            //For each edge pairs go through all the clusters in C'
+            //If only one edge is present in a cluster increase a by 1
+            //If none of the edges are present in a cluster move to next cluster.
+            //If both edges are found in the same cluster move to next edge pair.
+        }
             int a = 0;
-            foreach(Cluster cluster in outputClusterList)
+            foreach (Cluster cluster in outputClusterList)
             {
                 cluster.CreateDataPointPairs();
-                foreach(DataPointPair pair in cluster.GetDataPairs()) {
+                foreach (DataPointPair pair in cluster.GetDataPairs()) {
                     int id1 = pair.idOne;
                     int id2 = pair.idTwo;
                     foreach (Cluster clusterPrime in targetClusterList)
                     {
                         int edgeVal = clusterPrime.GetPairs(id1, id2);
-                        if(edgeVal == 2)
+                        if (edgeVal == 2)
                         {
                             break;
                         }
-                        else if(edgeVal == 1)
+                        else if (edgeVal == 1)
                         {
                             a++; //An in-cluser edge in C is a between-cluster in C'
                             break;
@@ -94,7 +155,7 @@ namespace Cluster_Algorithm
             }
 
             //---------------------------------//
-            /*
+            {  /*
              * Let b be the number of edges that are in cluster in C' and between cluster in C
              * First step is to find all is to find all the edges that are in cluster in C' and have a list of it
              * Second is to compare those edges to the same edges in C and see if that are in between cluster and not in
@@ -107,6 +168,7 @@ namespace Cluster_Algorithm
             //If only one edge is present in a cluster increase b by 1
             //If none of the edges are present in a cluster move to next cluster.
             //If both edges are found in the same cluster move to next edge pair.
+        }
 
             int b = 0;
             foreach (Cluster clusterPrime in targetClusterList)
